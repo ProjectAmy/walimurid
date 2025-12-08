@@ -1,14 +1,18 @@
-import Image from "next/image";
+import { Metadata } from "next";
+import {LoginGoogleButton} from "@/components/login-button";
 
 export default function Home() {
   return (
       <div >
-        <div className="mt-35">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold uppercase">Room & Rates</h1>
-            <p className="py-3">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, culpa?
+        <div className="min-h-screen flex items-center">
+          <div className="bg-white w-96 mx-auto rounded-sm shadow p-8">
+            <h1 className="text-4xl font-bold mb-1">Sign In</h1>
+            <p className="font-medium mb-5 text-gray-500">
+              Login ke akun
             </p>
+            <div className="py-4 text-center">
+              <LoginGoogleButton />
+            </div>
           </div>
         </div>
       </div>
