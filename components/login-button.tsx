@@ -5,14 +5,14 @@ export const LoginGoogleButton = () => {
   return (
     <form action={async () => {
       "use server";
-      await signIn('google')
+      await signIn('google', { redirectTo: "/auth-check" })
     }} >
-      
+
       <button className="flex items-center justify-center gap-2 w-full bg-blue-700 text-white font-medium py-3 px-6 text-base rounded-md hover:bg-blue-600 cursor-pointer">
-        <FaG className='size-6'/>
+        <FaG className='size-6' />
         Login dengan Google
       </button>
     </form>
-    
+
   )
 }
