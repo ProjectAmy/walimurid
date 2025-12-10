@@ -13,9 +13,9 @@ const Navlink = () => {
             {!open ? <IoMenu className="size-8" /> : <IoClose className="size-8" />}
         </button>
         <div className={clsx("w-full md:block md:w-auto", { "hidden": !open })}>
-            <ul className="flex flex-col font-semibold text-sm upparcase p-4 mt-4 rounded-sm bg-gray-50 md:flex-row md:items-center md:space-x-10 md:p-0 md:mt-0 md:border-0 md:bg-white">
+            <ul className="flex flex-col text-sm upparcase p-4 mt-4 rounded-sm bg-gray-50 md:flex-row md:items-center md:space-x-10 md:p-0 md:mt-0 md:border-0 md:bg-white">
                 <li>
-                    <Link href="/dasboard" className="block py-2 px-3 text-gray-800 hover:bg-gray-100 rounded-sm md:hover:bg-transparent md:p-0">
+                    <Link href="/dashboard" className="block py-2 px-3 text-gray-800 hover:bg-gray-100 rounded-sm md:hover:bg-transparent md:p-0">
                         Dasboard
                     </Link>
                 </li>
@@ -32,11 +32,6 @@ const Navlink = () => {
                 <li>
                     <Link href="/about" className="block py-2 px-3 text-gray-800 hover:bg-gray-100 rounded-sm md:hover:bg-transparent md:p-0">
                         About
-                    </Link>
-                </li>
-                <li className="pt-2 md:pt-0">
-                    <Link href="/signin" className="py-2.5 px-6 bg-orange-400 text-white hover:bg-orange-500 rounded-sm">
-                        Signin
                     </Link>
                 </li>
             </ul>
