@@ -25,7 +25,7 @@ const Navlink = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link href="/spp" className="block py-2 px-3 text-gray-800 hover:bg-gray-100 rounded-sm md:hover:bg-transparent md:p-0">
+                    <Link href="/invoices" className="block py-2 px-3 text-gray-800 hover:bg-gray-100 rounded-sm md:hover:bg-transparent md:p-0">
                         Invoice
                     </Link>
                 </li>
