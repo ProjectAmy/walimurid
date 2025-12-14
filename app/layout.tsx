@@ -4,6 +4,8 @@ import "./globals.css";
 import Navbar from "@/components/navbar/navbar";
 import Footer from "@/components/footer";
 
+import { Providers } from "./providers";
+
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -24,9 +26,11 @@ export default function RootLayout({
       <body
         className={`${poppins.className} ${poppins.className} antialiased`}
       >
-        <Navbar/>
-        <main className="bg-gray-50 min-h-screen">{children}</main>
-        <Footer/>
+        <Providers>
+          <Navbar />
+          <main className="bg-gray-50 min-h-screen">{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
