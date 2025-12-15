@@ -11,7 +11,7 @@ export default function Register() {
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         fullname: "",
-        email: "",
+        email: "", // Keep for display
         phone: "",
         address: "",
     });
@@ -31,18 +31,38 @@ export default function Register() {
         setLoading(true);
 
         try {
-            const res = await fetch(`${API_BASE_URL}/walimurid/register`, {
+            // @ts-ignore - session type is extended in auth.ts but typescript might not know it here without global declaration
+            const google_token = session?.user?.id_token;
+
+            if (!google_token) {
+                alert("Authentication error: Missing Google token.");
+                return;
+            }
+
+            const payload = {
+                google_token,
+                fullname: formData.fullname,
+                phone: formData.phone,
+                address: formData.address,
+            };
+
+            const url = `${API_BASE_URL}/auth/register`;
+            console.log("Sending payload to:", url, payload);
+
+            const res = await fetch(url, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(payload),
             });
 
             if (res.ok) {
                 router.push("/dashboard");
             } else {
-                alert("Registration failed. Please try again.");
+                const errorData = await res.json().catch(() => null);
+                console.error("Registration failed response:", res.status, errorData);
+                alert(`Registration failed: ${errorData?.message || "Unknown error"} (Status: ${res.status}). Check console for details.`);
             }
         } catch (error) {
             console.error("Registration error:", error);

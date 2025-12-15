@@ -25,7 +25,7 @@ const Navbar = async () => {
               />
             </Link>
             <span className="hidden md:block text-xl text-gray-900">
-              Dashboard Wali Murid
+              Wali Murid
             </span>
           </div>
 

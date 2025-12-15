@@ -12,7 +12,7 @@ export default async function AfterLogin() {
     // @ts-ignore
     const googleToken = session.user.id_token;
 
-    const res = await fetch(`${API_BASE_URL}/walimurid/check`, {
+    const res = await fetch(`${API_BASE_URL}/auth/check`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
