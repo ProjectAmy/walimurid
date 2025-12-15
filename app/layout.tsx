@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navbar/navbar";
+import Header from "@/components/header";
 import Footer from "@/components/footer";
 
 import { Providers } from "./providers";
@@ -24,11 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.className} ${poppins.className} antialiased`}
+        className={`${poppins.className} ${poppins.className} antialiased min-h-screen flex flex-col`}
       >
         <Providers>
-          <Navbar />
-          <main className="bg-gray-50 min-h-screen">{children}</main>
+          <Header />
+          <main className="bg-gray-50 flex-grow flex flex-col">{children}</main>
           <Footer />
         </Providers>
       </body>
