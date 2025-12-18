@@ -1,6 +1,5 @@
 import { auth } from "@/auth";
 import Image from "next/image";
-import Link from "next/link";
 import Navbar from "./navbar/navbar";
 
 const Header = async () => {
@@ -12,7 +11,6 @@ const Header = async () => {
                 <div className="flex flex-wrap items-center justify-between py-4">
                     {/* Logo and Title */}
                     <div className="flex items-center gap-4">
-                        <Link href="/">
                             <Image
                                 src="/LogoYiss.png"
                                 alt="Logo YISS"
@@ -21,7 +19,6 @@ const Header = async () => {
                                 priority
                                 className="w-auto h-12"
                             />
-                        </Link>
                         <span className="text-xl text-gray-900 font-medium">
                             Wali Murid
                         </span>

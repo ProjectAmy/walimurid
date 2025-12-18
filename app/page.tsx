@@ -2,7 +2,16 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { LoginGoogleButton } from "@/components/login-button";
 
-export default function Home() {
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+
+export default async function Home() {
+  const session = await auth();
+
+  if (session) {
+    redirect("/dashboard");
+  }
+
   return (
     <div className="flex-grow flex items-center justify-center">
       <div className="bg-white w-96 mx-auto rounded-sm shadow p-8 my-8">

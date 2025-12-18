@@ -29,7 +29,7 @@ const Navbar = ({ session }: { session: Session }) => {
         <form
           action={async () => {
             "use server";
-            await signOut();
+            await signOut({ redirectTo: "/" });
           }}
         >
           <button
