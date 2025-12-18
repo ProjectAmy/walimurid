@@ -10,19 +10,19 @@ const Navbar = ({ session }: { session: Session }) => {
 
       {/* User Profile and Sign Out */}
       <div className="flex items-center gap-4 mt-4 md:mt-0">
-        <div className="flex items-center gap-3 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100">
+        <div className="flex items-center gap-3 bg-gray-50 dark:bg-zinc-800 px-3 py-1.5 rounded-full border border-gray-100 dark:border-zinc-700">
           {session?.user?.image && (
             <img
               src={session.user.image}
               alt={session.user.name || "User"}
-              className="h-8 w-8 rounded-full border-2 border-white shadow-sm"
+              className="h-8 w-8 rounded-full border-2 border-white dark:border-zinc-700 shadow-sm"
             />
           )}
           <div className="flex flex-col">
-            <span className="text-sm font-medium text-gray-700 leading-none">
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-200 leading-none">
               {session?.user?.name}
             </span>
-            <span className="text-xs text-gray-500">Wali Murid</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">Wali Murid</span>
           </div>
         </div>
 

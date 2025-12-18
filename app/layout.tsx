@@ -28,7 +28,7 @@ export default function RootLayout({
       >
         <Providers>
           <Header />
-          <main className="bg-gray-50 flex-grow flex flex-col">{children}</main>
+          <main className="bg-gray-50 dark:bg-zinc-950 flex-grow flex flex-col">{children}</main>
           <Footer />
         </Providers>
       </body>

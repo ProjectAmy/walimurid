@@ -147,11 +147,11 @@ export default function InvoicesPage() {
     }
 
     return (
-        <div className="max-w-2xl w-full mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <div className="max-w-3xl w-full mx-auto px-4 py-8 sm:px-6 lg:px-8">
             {/* Header Section */}
             <div className="mb-8">
-                <h1 className="text-3xl font-bold text-gray-900">Tagihan Sekolah</h1>
-                <p className="mt-1 text-sm text-gray-500">Kelola dan bayar tagihan sekolah dengan mudah.</p>
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Tagihan Sekolah</h1>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Kelola dan bayar tagihan sekolah dengan mudah.</p>
             </div>
 
             {/* Summary Cards */}
@@ -185,15 +185,15 @@ export default function InvoicesPage() {
                             onClick={() => setActiveTab(tab.id)}
                             className={clsx(
                                 activeTab === tab.id
-                                    ? "border-indigo-500 text-indigo-600"
-                                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300",
-                                "whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center gap-2"
+                                    ? "border-indigo-500 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400"
+                                    : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:border-gray-300 dark:hover:border-gray-700",
+                                "whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center gap-2 transition-colors"
                             )}
                         >
                             {tab.label}
                             <span className={clsx(
                                 "py-0.5 px-2.5 rounded-full text-xs font-medium",
-                                activeTab === tab.id ? "bg-indigo-100 text-indigo-600" : "bg-gray-100 text-gray-900"
+                                activeTab === tab.id ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-300" : "bg-gray-100 text-gray-900 dark:bg-zinc-800 dark:text-gray-300"
                             )}>
                                 {tab.count}
                             </span>
