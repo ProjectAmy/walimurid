@@ -44,9 +44,31 @@ export default function InvoicesPage() {
         fetchInvoices();
     }, []);
 
+    const getToken = () => {
+        // Try getting from cookie first, then localStorage
+        // Note: We need to import Cookies dynamically or use native document.cookie if we want to avoid top-level import issues if SSR, 
+        // but since this is "use client", we can just assume document.cookie or localStorage availability.
+        // Simple parse for cookie or use localStorage
+        return localStorage.getItem("auth_token");
+        // Or if you want to use the cookie you just set:
+        // const match = document.cookie.match(new RegExp('(^| )auth_token=([^;]+)'));
+        // return match ? match[2] : localStorage.getItem("auth_token");
+    };
+
     const fetchInvoices = async () => {
         try {
-            const res = await fetch(`${API_BASE_URL}/invoices`);
+            const token = getToken();
+            const headers: HeadersInit = {
+                "Content-Type": "application/json",
+            };
+
+            if (token) {
+                headers["Authorization"] = `Bearer ${token}`;
+            }
+
+            const res = await fetch(`${API_BASE_URL}/invoices`, {
+                headers: headers
+            });
             const data = await res.json();
 
             if (Array.isArray(data)) {
@@ -67,9 +89,18 @@ export default function InvoicesPage() {
         setLoadingId(invoiceId);
 
         try {
+            const token = getToken();
+            const headers: HeadersInit = {
+                "Content-Type": "application/json",
+            };
+
+            if (token) {
+                headers["Authorization"] = `Bearer ${token}`;
+            }
+
             const res = await fetch(`${API_BASE_URL}/invoices/${invoiceId}/snap-token`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: headers,
             });
 
             const data = await res.json();
