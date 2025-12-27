@@ -36,7 +36,7 @@ export default function InvoicesPage() {
         const script = document.createElement("script");
         script.id = scriptId;
         script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
-        script.setAttribute("data-client-key", `${API_BASE_URL}/invoices`); // Note: usage in original code seems to imply client key is not secret? Or maybe endpoint usage is weird. Keeping as is.
+        script.setAttribute("data-client-key", process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY || "");
         document.body.appendChild(script);
     }, []);
 
