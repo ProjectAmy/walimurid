@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
+import { useSession } from "next-auth/react";
 import { API_BASE_URL } from "@/lib/constants";
 import { FiFileText, FiCheckCircle, FiClock, FiAlertCircle, FiFilter, FiCreditCard } from "react-icons/fi";
 import { clsx } from "clsx";
@@ -28,6 +29,8 @@ export default function InvoicesPage() {
     const [loadingId, setLoadingId] = useState<number | null>(null);
     const [activeTab, setActiveTab] = useState<TabType>("unpaid");
 
+    const { data: session, status } = useSession();
+
     // Load Snap JS once
     useEffect(() => {
         const scriptId = "midtrans-script";
@@ -41,18 +44,14 @@ export default function InvoicesPage() {
     }, []);
 
     useEffect(() => {
-        fetchInvoices();
-    }, []);
+        if (status === "authenticated") {
+            fetchInvoices();
+        }
+    }, [status]);
 
     const getToken = () => {
-        // Try getting from cookie first, then localStorage
-        // Note: We need to import Cookies dynamically or use native document.cookie if we want to avoid top-level import issues if SSR, 
-        // but since this is "use client", we can just assume document.cookie or localStorage availability.
-        // Simple parse for cookie or use localStorage
-        return localStorage.getItem("auth_token");
-        // Or if you want to use the cookie you just set:
-        // const match = document.cookie.match(new RegExp('(^| )auth_token=([^;]+)'));
-        // return match ? match[2] : localStorage.getItem("auth_token");
+        // @ts-ignore
+        return session?.user?.backendToken;
     };
 
     const fetchInvoices = async () => {

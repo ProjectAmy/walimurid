@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import { API_BASE_URL } from "@/lib/constants";
 import { FiUser, FiCalendar, FiBook, FiAward, FiAlertCircle, FiBookmark } from "react-icons/fi";
 import { clsx } from "clsx";
@@ -20,12 +21,20 @@ export default function StudentPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
+    const { data: session, status } = useSession();
+
     useEffect(() => {
-        fetchStudents();
-    }, []);
+        if (status === "authenticated") {
+            fetchStudents();
+        } else if (status === "unauthenticated") {
+            // Optional: redirect or just let it be handled by middleware/layout
+            window.location.href = "/login";
+        }
+    }, [status]);
 
     const getToken = () => {
-        return localStorage.getItem("auth_token");
+        // @ts-ignore
+        return session?.user?.backendToken;
     };
 
     const fetchStudents = async () => {
