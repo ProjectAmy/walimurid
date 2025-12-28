@@ -19,7 +19,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           });
 
           if (res.status === 404) {
-            return "/register"; // Redirect to register page
+            return true; // Allow sign in so session is created, then handle redirect in middleware or page
           }
 
           if (res.status === 200) {
@@ -37,8 +37,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async jwt({ token, account }) {
       if (account) {
         token.id_token = account.id_token
+      }
 
-        // Fetch backend token here on initial sign in
+      // Fetch backend token if valid google token exists but backend token is missing
+      // @ts-ignore
+      if (token.id_token && !token.backendToken) {
         try {
           const res = await fetch(`${API_BASE_URL}/auth/check`, {
             method: "POST",
@@ -46,7 +49,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              google_token: account.id_token,
+              // @ts-ignore
+              google_token: token.id_token,
             }),
           });
 
