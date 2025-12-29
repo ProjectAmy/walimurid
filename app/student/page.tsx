@@ -185,7 +185,7 @@ export default function StudentPage() {
                                                 <FiBookmark className="w-4 h-4 mx-auto" />
                                             </div>
                                             <div>
-                                                <p className="text-xs text-gray-500 dark:text-gray-500">Tingkat</p>
+                                                <p className="text-xs text-gray-500 dark:text-gray-500">Kelas</p>
                                                 <p className="font-medium">{student.grade}</p>
                                             </div>
                                         </div>
