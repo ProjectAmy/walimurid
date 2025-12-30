@@ -11,6 +11,8 @@ export default function Register() {
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         fullname: "",
+        shortname: "",
+        call_name: "bapak", // Default value
         email: "", // Keep for display
         phone: "",
         address: "",
@@ -42,6 +44,8 @@ export default function Register() {
             const payload = {
                 google_token,
                 fullname: formData.fullname,
+                shortname: formData.shortname,
+                call_name: formData.call_name === "tidak ada" ? null : formData.call_name,
                 phone: formData.phone,
                 address: formData.address,
             };
@@ -112,6 +116,76 @@ export default function Register() {
                                     }
                                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                 />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label
+                                htmlFor="shortname"
+                                className="block text-sm font-medium text-gray-700"
+                            >
+                                Nama Panggilan (Shortname)
+                            </label>
+                            <div className="mt-1">
+                                <input
+                                    id="shortname"
+                                    name="shortname"
+                                    type="text"
+                                    value={formData.shortname}
+                                    onChange={(e) =>
+                                        setFormData({ ...formData, shortname: e.target.value })
+                                    }
+                                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label
+                                htmlFor="call_name"
+                                className="block text-sm font-medium text-gray-700"
+                            >
+                                Panggilan
+                            </label>
+                            <div className="mt-1">
+                                <select
+                                    id="call_name"
+                                    name="call_name"
+                                    value={formData.call_name}
+                                    onChange={(e) =>
+                                        setFormData({ ...formData, call_name: e.target.value })
+                                    }
+                                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                >
+                                    {[
+                                        "bapak",
+                                        "ibu",
+                                        "pak",
+                                        "bu",
+                                        "tuan",
+                                        "nyonya",
+                                        "nona",
+                                        "kakak",
+                                        "adik",
+                                        "nenek",
+                                        "kakek",
+                                        "tante",
+                                        "om",
+                                        "pakde",
+                                        "bude",
+                                        "paklek",
+                                        "bulek",
+                                        "kak",
+                                        "dek",
+                                        "akung",
+                                        "uti",
+                                        "tidak ada",
+                                    ].map((option) => (
+                                        <option key={option} value={option}>
+                                            {option}
+                                        </option>
+                                    ))}
+                                </select>
                             </div>
                         </div>
 

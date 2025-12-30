@@ -12,6 +12,16 @@ export default async function Dashboard() {
         redirect("/register");
     }
 
+    // @ts-ignore
+    const userProfile = session?.user?.walimurid_profile;
+
+    let greetingName = session?.user?.name;
+    if (userProfile?.shortname) {
+        greetingName = userProfile.call_name
+            ? `${userProfile.call_name} ${userProfile.shortname}`
+            : userProfile.shortname;
+    }
+
     return (
         <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -21,7 +31,7 @@ export default async function Dashboard() {
                         <div className="w-32 h-32 bg-blue-500 rounded-full blur-3xl"></div>
                     </div>
                     <h1 className="text-3xl text-gray-900 dark:text-white mb-2">
-                        Ahlan Wa Sahlan, {session?.user?.name}!
+                        Ahlan wa Sahlan, {greetingName}!
                     </h1>
                     <p className="text-gray-500 dark:text-gray-400">
                         Berikut adalah ringkasan aktivitas siswa Anda hari ini.

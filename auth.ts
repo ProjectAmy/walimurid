@@ -58,6 +58,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             const data = await res.json();
             // Store backend token in JWT
             token.backendToken = data.token || data.data?.token;
+            // Store profile data if available
+            // @ts-ignore
+            token.walimurid_profile = data.user?.walimurid_profile;
           }
         } catch (e) {
           console.error("Error fetching backend token in JWT callback", e);
@@ -70,6 +73,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       session.user.id_token = token.id_token
       // @ts-ignore
       session.user.backendToken = token.backendToken
+      // @ts-ignore
+      session.user.walimurid_profile = token.walimurid_profile
       return session
     },
   },

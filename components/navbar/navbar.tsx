@@ -20,7 +20,8 @@ const Navbar = ({ session }: { session: Session }) => {
           )}
           <div className="flex flex-col">
             <span className="text-sm font-medium text-gray-700 dark:text-gray-200 leading-none">
-              {session?.user?.name}
+              {/* @ts-ignore */}
+              {session?.user?.walimurid_profile?.shortname || session?.user?.name}
             </span>
             <span className="text-xs text-gray-500 dark:text-gray-400">Wali Murid</span>
           </div>
