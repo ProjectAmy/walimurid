@@ -28,7 +28,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
           return false; // content with 500 or other errors
         } catch (error) {
-          console.error("SignIn error:", error);
           return false;
         }
       }
@@ -60,7 +59,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             token.walimurid_profile = data.user?.walimurid_profile;
           }
         } catch (e) {
-          console.error("Error fetching backend token in JWT callback", e);
         }
       }
       return token

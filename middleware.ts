@@ -14,13 +14,11 @@ export default auth((req) => {
         req.nextUrl.pathname.startsWith("/invoices");
 
     // Logic 1: Unauthenticated user trying to access protected route -> Redirect to Home (Landing Page)
-    // User request: "jika belum login maka lempar ke halaman awal"
     if (!isLoggedIn && isProtectedRoute) {
         return NextResponse.redirect(new URL("/", req.nextUrl));
     }
 
     // Logic 2: Authenticated user but NOT Walimurid trying to access protected route -> Redirect to Register
-    // User request: "jika sudah login tapi ternyata bukan wali murid maka lempar ke halaman register"
     if (isLoggedIn && !isWalimurid && isProtectedRoute) {
         return NextResponse.redirect(new URL("/register", req.nextUrl));
     }

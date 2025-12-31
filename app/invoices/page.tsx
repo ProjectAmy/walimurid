@@ -78,7 +78,6 @@ export default function InvoicesPage() {
                 setInvoices([]);
             }
         } catch (error) {
-            console.error("Error fetching invoices:", error);
             setInvoices([]);
         }
         setLoading(false);
@@ -113,22 +112,18 @@ export default function InvoicesPage() {
 
             window.snap.pay(snapToken, {
                 onSuccess: function () {
-                    // alert("Pembayaran berhasil!"); // Optional: replace with toast if available
                     fetchInvoices();
                 },
                 onPending: function () {
-                    // alert("Menunggu pembayaran...");
                     fetchInvoices();
                 },
                 onError: function () {
                     alert("Pembayaran gagal");
                 },
                 onClose: function () {
-                    console.log("Popup closed");
                 },
             });
         } catch (err) {
-            console.error("Payment error:", err);
         }
 
         setLoadingId(null);

@@ -13,7 +13,7 @@ export default function Register() {
         fullname: "",
         shortname: "",
         call_name: "bapak", // Default value
-        email: "", // Keep for display
+        email: "",
         phone: "",
         address: "",
     });
@@ -51,7 +51,6 @@ export default function Register() {
             };
 
             const url = `${API_BASE_URL}/auth/register`;
-            console.log("Sending payload to:", url, payload);
 
             const res = await fetch(url, {
                 method: "POST",
@@ -65,11 +64,9 @@ export default function Register() {
                 router.push("/dashboard");
             } else {
                 const errorData = await res.json().catch(() => null);
-                console.error("Registration failed response:", res.status, errorData);
                 alert(`Registration failed: ${errorData?.message || "Unknown error"} (Status: ${res.status}). Check console for details.`);
             }
         } catch (error) {
-            console.error("Registration error:", error);
             alert("Something went wrong");
         } finally {
             setLoading(false);
