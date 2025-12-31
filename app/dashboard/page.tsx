@@ -4,13 +4,8 @@ import { auth } from "@/auth";
 export default async function Dashboard() {
     const session = await auth();
 
-    // Check if user has backend token (registered on backend)
-    // @ts-ignore
-    if (!session?.user?.backendToken) {
-        // Find a way to redirect, usually using next/navigation
-        const { redirect } = await import("next/navigation");
-        redirect("/register");
-    }
+    // Check handled by middleware
+
 
     // @ts-ignore
     const userProfile = session?.user?.walimurid_profile;

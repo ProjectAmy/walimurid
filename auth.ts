@@ -40,7 +40,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
 
       // Fetch backend token if valid google token exists but backend token is missing
-      // @ts-ignore
       if (token.id_token && !token.backendToken) {
         try {
           const res = await fetch(`${API_BASE_URL}/auth/check`, {
@@ -49,7 +48,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              // @ts-ignore
               google_token: token.id_token,
             }),
           });
@@ -59,7 +57,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             // Store backend token in JWT
             token.backendToken = data.token || data.data?.token;
             // Store profile data if available
-            // @ts-ignore
             token.walimurid_profile = data.user?.walimurid_profile;
           }
         } catch (e) {
@@ -69,11 +66,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return token
     },
     async session({ session, token }) {
-      // @ts-ignore
-      session.user.id_token = token.id_token
-      // @ts-ignore
-      session.user.backendToken = token.backendToken
-      // @ts-ignore
+      session.user.id_token = token.id_token as string
+      session.user.backendToken = token.backendToken as string
       session.user.walimurid_profile = token.walimurid_profile
       return session
     },
