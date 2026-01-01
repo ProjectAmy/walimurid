@@ -19,7 +19,8 @@ export default auth((req) => {
     }
 
     // Logic 2: Authenticated user but NOT Walimurid trying to access protected route -> Redirect to Register
-    if (isLoggedIn && !isWalimurid && isProtectedRoute) {
+    // Fix: Ensure we don't redirect if already on the register page to avoid loop
+    if (isLoggedIn && !isWalimurid && isProtectedRoute && !req.nextUrl.pathname.startsWith("/register")) {
         return NextResponse.redirect(new URL("/register", req.nextUrl));
     }
 
