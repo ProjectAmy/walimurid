@@ -18,7 +18,7 @@ export default async function Home() {
         {session && (
           <div className="mb-4 p-2 bg-yellow-100 text-yellow-800 text-xs rounded">
             Debug: Session Detected on Page (Server Component).
-            <br />redeploy: {session.user?.email}
+            <br />triggered: {session.user?.email}
           </div>
         )}
         <div className="flex justify-center mb-4">
