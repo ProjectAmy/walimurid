@@ -60,8 +60,18 @@ export default function Register() {
                 body: JSON.stringify(payload),
             });
 
+            console.log("Register response status:", res.status);
             if (res.ok) {
-                router.push("/dashboard");
+                console.log("Registration successful. Updating session...");
+                try {
+                    await update();
+                    console.log("Session update completed. Redirecting to dashboard...");
+                    router.push("/dashboard");
+                } catch (updateError) {
+                    console.error("Error during session update:", updateError);
+                    // Fallback using window.location if router fails or update throws
+                    window.location.href = "/dashboard";
+                }
             } else {
                 const errorData = await res.json().catch(() => null);
                 alert(`Registration failed: ${errorData?.message || "Unknown error"} (Status: ${res.status}). Check console for details.`);
