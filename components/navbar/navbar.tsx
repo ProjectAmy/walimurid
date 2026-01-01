@@ -1,4 +1,6 @@
-import { signOut } from "@/auth";
+"use client";
+
+import { signOut } from "next-auth/react";
 import Navlink from "./navlink";
 import { Session } from "next-auth";
 
@@ -27,19 +29,12 @@ const Navbar = ({ session }: { session: Session }) => {
           </div>
         </div>
 
-        <form
-          action={async () => {
-            "use server";
-            await signOut({ redirectTo: "/" });
-          }}
+        <button
+          onClick={() => signOut({ redirectTo: "/" })}
+          className="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 transition-colors"
         >
-          <button
-            type="submit"
-            className="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 transition-colors"
-          >
-            Sign Out
-          </button>
-        </form>
+          Sign Out
+        </button>
       </div>
     </>
   );
