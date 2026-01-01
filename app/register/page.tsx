@@ -66,7 +66,7 @@ export default function Register() {
                 try {
                     await update();
                     console.log("Session update completed. Redirecting to dashboard...");
-                    router.push("/dashboard");
+                    window.location.href = "/dashboard";
                 } catch (updateError) {
                     console.error("Error during session update:", updateError);
                     // Fallback using window.location if router fails or update throws
