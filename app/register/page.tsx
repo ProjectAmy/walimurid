@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { API_BASE_URL } from "@/lib/constants";
 
 export default function Register() {
-    const { data: session, status } = useSession();
+    const { data: session, status, update } = useSession();
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
