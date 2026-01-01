@@ -3,7 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useSession } from "next-auth/react";
 import { API_BASE_URL } from "@/lib/constants";
-import { FiFileText, FiCheckCircle, FiClock, FiAlertCircle, FiFilter, FiCreditCard } from "react-icons/fi";
+import { FiCheckCircle, FiClock, FiAlertCircle, FiFilter, FiCreditCard } from "react-icons/fi";
 import { clsx } from "clsx";
 
 declare global {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { IoStatsChart, IoSchool, IoWallet, IoNotifications, IoShieldCheckmark, IoInformationCircle } from "react-icons/io5";
 
 const features = [
