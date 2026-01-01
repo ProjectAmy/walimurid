@@ -8,13 +8,19 @@ import { redirect } from "next/navigation";
 export default async function Home() {
   const session = await auth();
 
-  if (session) {
-    redirect("/dashboard");
-  }
+  // if (session) {
+  //   redirect("/dashboard");
+  // }
 
   return (
     <div className="flex-grow flex items-center justify-center">
       <div className="bg-white w-96 mx-auto rounded-sm shadow p-8 my-8">
+        {session && (
+          <div className="mb-4 p-2 bg-yellow-100 text-yellow-800 text-xs rounded">
+            Debug: Session Detected on Page (Server Component).
+            <br />User: {session.user?.email}
+          </div>
+        )}
         <div className="flex justify-center mb-4">
           <Image
             src="/LogoYiss.png"

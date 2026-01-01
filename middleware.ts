@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 export default auth((req) => {
     // Debug logging
     console.log(`[Middleware] Processing path: ${req.nextUrl.pathname}`);
+    console.log(`[Middleware] AUTH_SECRET present: ${!!process.env.AUTH_SECRET}`);
 
     const isLoggedIn = !!req.auth;
     const isWalimurid = !!req.auth?.user?.walimurid_profile || !!req.auth?.user?.backendToken;
