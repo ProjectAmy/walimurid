@@ -1,4 +1,4 @@
-import { IoStatsChart, IoSchool, IoWallet, IoNotifications, IoShieldCheckmark, IoInformationCircle } from "react-icons/io5";
+import { IoStatsChart, IoSchool, IoWallet, IoNotifications, IoShieldCheckmark, IoInformationCircle, IoLogoWhatsapp } from "react-icons/io5";
 
 const features = [
     {
@@ -67,15 +67,24 @@ const AboutPage = () => {
             <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-10 md:p-16 text-center text-white shadow-xl overflow-hidden relative isolate">
                 <div className="relative z-10">
                     <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">Siap Memantau Pendidikan Anak?</h2>
-                    <p className="mb-0 text-blue-100 text-lg max-w-2xl mx-auto">
-                        Bergabunglah dengan komunitas orang tua yang peduli. Akses semua informasi penting hanya dalam genggaman Anda.
-                    </p>
+                    Bergabunglah dengan komunitas orang tua yang peduli. Akses semua informasi penting hanya dalam genggaman Anda.
                 </div>
-
-                {/* Decorative Background Elements */}
-                <div className="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-                <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3"></div>
+                <div className="mt-8">
+                    <a
+                        href="https://wa.me/62895110024000"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-600 rounded-full font-bold hover:bg-blue-50 transition-colors duration-300 shadow-lg hover:shadow-xl"
+                    >
+                        <IoLogoWhatsapp className="w-6 h-6" />
+                        Hubungi 0895110024000
+                    </a>
+                </div>
             </div>
+
+            {/* Decorative Background Elements */}
+            <div className="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+            <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3"></div>
         </div>
     );
 };
