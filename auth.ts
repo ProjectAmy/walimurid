@@ -8,7 +8,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async signIn({ user, account, profile }) {
       if (account?.provider === "google") {
         try {
-          console.log(`[Auth] Checking backend for user: ${user.email}, API_BASE_URL: ${API_BASE_URL}`);
+
           const res = await fetch(`${API_BASE_URL}/auth/check`, {
             method: "POST",
             headers: {
@@ -18,12 +18,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
               google_token: account.id_token,
             }),
           });
-          console.log(`[Auth] Backend check response status: ${res.status}`);
+
 
           if (res.status === 404) {
-            console.log(`[Auth] User not found in backend, allowing sign in to proceed`);
+
             return true; // Allow sign in so session is created, then handle redirect in middleware or page
           }
+
+
 
           if (res.status === 200) {
             return true; // Allow sign in
@@ -31,7 +33,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
           return false; // content with 500 or other errors
         } catch (error) {
-          console.error(`[Auth] Error during signIn backend check:`, error);
+
           return false;
         }
       }
@@ -45,7 +47,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       // Fetch backend token if valid google token exists but backend token is missing
       if (token.id_token && !token.backendToken) {
         try {
-          console.log(`[Auth] Fetching backend token in JWT`);
+
           const res = await fetch(`${API_BASE_URL}/auth/check`, {
             method: "POST",
             headers: {
@@ -58,7 +60,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
           if (res.status === 200) {
             const data = await res.json();
-            console.log(`[Auth] Successfully retrieved backend token`);
+
             // Store backend token in JWT
             token.backendToken = data.token || data.data?.token;
             // Store profile data if available
