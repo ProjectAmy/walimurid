@@ -7,6 +7,7 @@ declare module "next-auth" {
             id_token?: string
             backendToken?: string
             walimurid_profile?: any
+            is_registered?: boolean
         } & DefaultSession["user"]
     }
 
@@ -14,6 +15,7 @@ declare module "next-auth" {
         id_token?: string
         backendToken?: string
         walimurid_profile?: any
+        is_registered?: boolean
     }
 }
 
@@ -22,5 +24,6 @@ declare module "next-auth/jwt" {
         id_token?: string
         backendToken?: string
         walimurid_profile?: any
+        is_registered?: boolean
     }
 }

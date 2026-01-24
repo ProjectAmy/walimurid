@@ -64,7 +64,7 @@ export default function Register() {
             if (res.ok) {
                 console.log("Registration successful. Updating session...");
                 try {
-                    await update();
+                    await update({ trigger: "update" }); // Pass logic to trigger update
                     console.log("Session update completed. Redirecting to dashboard...");
                     window.location.href = "/dashboard";
                 } catch (updateError) {

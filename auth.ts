@@ -21,8 +21,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
 
           if (res.status === 404) {
-
-            return true; // Allow sign in so session is created, then handle redirect in middleware or page
+            // User not found in backend
+            return "/?error=EmailTidakTerdaftar";
           }
 
 
@@ -39,13 +39,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
       return true;
     },
-    async jwt({ token, account }) {
+    async jwt({ token, account, trigger, session }) {
       if (account) {
         token.id_token = account.id_token
       }
 
-      // Fetch backend token if valid google token exists but backend token is missing
-      if (token.id_token && !token.backendToken) {
+      // Fetch backend token if valid google token exists but backend token is missing OR if triggered by session update
+      if ((token.id_token && !token.backendToken) || trigger === "update") {
         try {
 
           const res = await fetch(`${API_BASE_URL}/auth/check`, {
@@ -65,6 +65,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             token.backendToken = data.token || data.data?.token;
             // Store profile data if available
             token.walimurid_profile = data.user?.walimurid_profile;
+            // Store registration status
+            token.is_registered = data.is_registered;
           }
         } catch (e) {
         }
@@ -75,7 +77,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       session.user.id_token = token.id_token as string
       session.user.backendToken = token.backendToken as string
       session.user.walimurid_profile = token.walimurid_profile
+      session.user.is_registered = token.is_registered
       return session
     },
   },
+  pages: {
+    signIn: "/",
+    error: "/",
+  }
 })
