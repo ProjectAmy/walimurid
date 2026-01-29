@@ -9,7 +9,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (account?.provider === "google") {
         try {
 
-          console.log("[Auth] Checking backend at:", `${API_BASE_URL}/auth/check`);
           const res = await fetch(`${API_BASE_URL}/auth/check`, {
             method: "POST",
             headers: {
@@ -20,29 +19,24 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             }),
           });
 
-          console.log("[Auth] Backend response status:", res.status);
-
           if (res.status === 404) {
-            console.log("[Auth] User not found (404)");
             // User not found in backend
             return "/?error=EmailTidakTerdaftar";
           }
 
           if (res.status === 200) {
-            console.log("[Auth] Sign in successful (200)");
             return true;
           }
 
           if (res.status === 401) {
             const errorData = await res.json();
-            console.error("[Auth] Backend 401 Unauthorized. Error details:", errorData);
+            console.error("[Auth] Backend 401 Unauthorized during sign-in:", errorData);
             return false;
           }
 
-          console.log("[Auth] Sign in denied. Status:", res.status);
           return false;
         } catch (error) {
-          console.error("[Auth] Sign in error:", error);
+          console.error("[Auth] Sign in fetch error:", error);
           return false;
         }
       }
@@ -56,7 +50,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       // Fetch backend token if valid google token exists but backend token is missing OR if triggered by session update
       if ((token.id_token && !token.backendToken) || trigger === "update") {
         try {
-          console.log("[Auth] Fetching backend token in JWT callback");
           const res = await fetch(`${API_BASE_URL}/auth/check`, {
             method: "POST",
             headers: {
@@ -66,8 +59,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
               google_token: token.id_token,
             }),
           });
-
-          console.log("[Auth] JWT backend check status:", res.status);
 
           if (res.status === 200) {
             const data = await res.json();
@@ -81,7 +72,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             token.is_registered = data.is_registered;
           }
         } catch (e) {
-          console.error("[Auth] JWT error:", e);
+          console.error("[Auth] JWT callback fetch error:", e);
         }
       }
       return token
