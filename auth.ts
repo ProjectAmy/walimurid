@@ -9,6 +9,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (account?.provider === "google") {
         try {
 
+          console.log("[Auth] Checking backend at:", `${API_BASE_URL}/auth/check`);
           const res = await fetch(`${API_BASE_URL}/auth/check`, {
             method: "POST",
             headers: {
@@ -19,21 +20,23 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             }),
           });
 
+          console.log("[Auth] Backend response status:", res.status);
 
           if (res.status === 404) {
+            console.log("[Auth] User not found (404)");
             // User not found in backend
             return "/?error=EmailTidakTerdaftar";
           }
 
-
-
           if (res.status === 200) {
+            console.log("[Auth] Sign in successful (200)");
             return true; // Allow sign in
           }
 
+          console.log("[Auth] Sign in denied (unexpected status)");
           return false; // content with 500 or other errors
         } catch (error) {
-
+          console.error("[Auth] Sign in error:", error);
           return false;
         }
       }
@@ -47,7 +50,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       // Fetch backend token if valid google token exists but backend token is missing OR if triggered by session update
       if ((token.id_token && !token.backendToken) || trigger === "update") {
         try {
-
+          console.log("[Auth] Fetching backend token in JWT callback");
           const res = await fetch(`${API_BASE_URL}/auth/check`, {
             method: "POST",
             headers: {
@@ -58,8 +61,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             }),
           });
 
+          console.log("[Auth] JWT backend check status:", res.status);
+
           if (res.status === 200) {
             const data = await res.json();
+            console.log("[Auth] JWT received data for user:", data.user?.email);
 
             // Store backend token in JWT
             token.backendToken = data.token || data.data?.token;
@@ -69,6 +75,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             token.is_registered = data.is_registered;
           }
         } catch (e) {
+          console.error("[Auth] JWT error:", e);
         }
       }
       return token
