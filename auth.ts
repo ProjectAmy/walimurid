@@ -30,11 +30,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
           if (res.status === 200) {
             console.log("[Auth] Sign in successful (200)");
-            return true; // Allow sign in
+            return true;
           }
 
-          console.log("[Auth] Sign in denied (unexpected status)");
-          return false; // content with 500 or other errors
+          if (res.status === 401) {
+            const errorData = await res.json();
+            console.error("[Auth] Backend 401 Unauthorized. Error details:", errorData);
+            return false;
+          }
+
+          console.log("[Auth] Sign in denied. Status:", res.status);
+          return false;
         } catch (error) {
           console.error("[Auth] Sign in error:", error);
           return false;
